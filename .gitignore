@@ -6,3 +6,5 @@ bin
 obj
 *.user
 *.suo
+results
+src/CommonAssemblyInfo.cs
