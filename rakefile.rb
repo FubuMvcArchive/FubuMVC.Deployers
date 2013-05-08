@@ -33,10 +33,13 @@ BUILD_NUMBER = "#{BUILD_VERSION}.#{build_revision}"
 props = { :stage => BUILD_DIR, :artifacts => ARTIFACTS }
 
 desc "**Default**, compiles and runs tests"
-task :default => [:compile, :unit_test]
+task :default => [:compile, :create_bottles, :unit_test]
 
 desc "Target used for the CI server"
 task :ci => [:update_all_dependencies, :default, :history, :package]
+
+desc "Target used for CI on Mono"
+task :mono_ci => [:update_all_dependencies, :default, :mono_unit_test]
 
 desc "Update the version information for the build"
 assemblyinfo :version do |asm|
@@ -84,10 +87,9 @@ task :compile => [:restore_if_missing, :clean, :version] do
   MSBuildRunner.compile :compilemode => COMPILE_TARGET, :solutionfile => 'src/FubuMVC.Deployers.sln', :clrversion => CLR_TOOLS_VERSION
 end
 
-def copyOutputFiles(fromDir, filePattern, outDir)
-  Dir.glob(File.join(fromDir, filePattern)){|file| 		
-	copy(file, outDir, :preserve => true) if File.file?(file)
-  } 
+task :create_bottles => :compile do
+  milk_dir = "src/packages/milkman/tools"
+  sh "#{milk_dir}/milk.exe create-all --output build --target #{COMPILE_TARGET}"
 end
 
 desc "Runs unit tests"
@@ -98,14 +100,3 @@ task :unit_test => :compile do
   runner = NUnitRunner.new :compilemode => COMPILE_TARGET, :source => 'src', :platform => 'x86'
   runner.executeTests ['FubuMVC.Deployers.Testing']
 end
-
-
-
-def self.bottles(args)
-  bottles = Platform.runtime(Nuget.tool("Bottles", "BottleRunner.exe"))
-  sh "#{bottles} #{args}"
-end
-
-
-
-

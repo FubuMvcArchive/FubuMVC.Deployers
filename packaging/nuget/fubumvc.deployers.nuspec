@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<package xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <id>FubuMVC.Deployers</id>
+    <version>0.0.0</version>
+    <authors>Dru Sellers, Dru Sellers, et al.</authors>
+    <owners>Jeremy D. Miller</owners>
+    <licenseUrl>https://github.com/DarthFubuMVC/bottles/raw/master/license.txt</licenseUrl>
+    <projectUrl>http://bottles.fubu-project.org/</projectUrl>
+    <iconUrl>https://github.com/DarthFubuMVC/fubu-collateral/raw/master/Icons/FubuBottles_256.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Tools for deploying Fubu-based IIS web sites using Bottles and Milkman deployment frameworks</description>
+    <tags>packaging areas slices</tags>
+    <dependencies>
+      <dependency id="Bottles" version="1.0.0.478"/>
+      <dependency id="FubuCore" version="1.0.0.225" />
+      <dependency id="FubuLocalization" version="0.9.5.144" />
+      <dependency id="FubuMVC.Core" version="1.0.1.1462" />
+      <dependency id="FubuMVC.StructureMap" version="1.0.1.1462" />
+      <dependency id="HtmlTags" version="1.2.0.161" />      
+      <dependency id="StructureMap" version="2.6.3" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="..\..\src\FubuMVC.Deployers\bin\release\FubuMVC.Deployers.*" target="lib" />
+    <file src="..\..\build\fubumvc-deployers.zip" target="tools" />
+  </files>
+</package>

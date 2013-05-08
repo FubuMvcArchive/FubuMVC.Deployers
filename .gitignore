@@ -1,3 +1,6 @@
+artifacts/
+build/
+logs/
 src/packages
 bottles.cmd
 fubu.cmd
